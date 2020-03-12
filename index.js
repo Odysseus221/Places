@@ -30,7 +30,8 @@ app.get('/', (req, res)=>{
 });
 app.get('/concerts_tonight', (req, res) =>{
     console.log('route/concerts_tonight!')
-    res.send('Enclosed is a list of <h1>Happenings Around  Town Tonight</h1>')
+ //   res.send('Enclosed is a list of <h1>Happenings Around  Town Tonight</h1>')
+      res.json(concerts)
 });
 
 
