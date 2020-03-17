@@ -1,5 +1,9 @@
 const express = require('express')
 const app = express();
+const bodyParser = require('body-parser')
+//created body parser code for json
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true } ));
 const port = 3000;
 const concerts = require('./concerts')
 //console.log(concerts);
@@ -34,6 +38,13 @@ app.get('/concerts_tonight', (req, res) =>{
       res.json(concerts)
 });
 
+
+app.post('/concerts', (req, res)=>{
+    console.log('route/')
+    concerts.push(req.body)
+    res.send('New event listed')
+    console.log(req.body )
+});
 
 app.listen(port, () =>{
     console.log('server has started on port: ' + port);

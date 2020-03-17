@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-     "dev":"  index"
+    "dev": "  index"
   },
   "author": "sam c",
   "license": "ISC",
   "dependencies": {
+    "body": "^5.1.0",
     "express": "^4.17.1",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "parser": "^0.1.4"
   }
 }
