@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-     "dev":"nodemon index"
+     "dev":"  index"
   },
   "author": "sam c",
   "license": "ISC",
