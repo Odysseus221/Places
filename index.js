@@ -57,6 +57,20 @@ app.delete('/concerts/:id', (req,res)=>{
     res.json(concerts)  
 });
 
+app.put('/concerts/',(req,res)=>{
+    let concertupdate = req.body
+    concerts=concerts.filter(concert =>{
+        if (concertupdate.id==concert.id){
+            concert.name = concertupdate.name
+            concert.place = concertupdate.place
+
+        }
+        return concert;
+    } )
+    
+    res.json(concerts)
+});
+
 app.listen(port, () =>{
     console.log('server has started on port: ' + port);
 
@@ -65,3 +79,4 @@ app.listen(port, () =>{
  
 
  
+
