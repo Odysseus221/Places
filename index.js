@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true } ));
 const port = 3000;
-const concerts = require('./concerts')
+let concerts = require('./concerts')
 //console.log(concerts);
   app.get('/concerts',(req,res)=>{
     console.log('concerts/')
@@ -23,7 +23,7 @@ const concerts = require('./concerts')
          res.json(concert)
      }
     else{
-        res.send("there is no concert with this ID")
+        res.send("there is no concert with this place")
     }
   });
 
@@ -38,12 +38,23 @@ app.get('/concerts_tonight', (req, res) =>{
       res.json(concerts)
 });
 
+// created concerts.push(req.body)
+//first added to postman post then get and should should
 
 app.post('/concerts', (req, res)=>{
-    console.log('route/')
+ //   console.log('route/')
     concerts.push(req.body)
     res.send('New event listed')
-    console.log(req.body )
+ //   console.log(req.body )
+});
+
+app.delete('/concerts/:id', (req,res)=>{
+  //  console.log(req.params.place)
+    
+    let id = req.params.id
+    concerts=concerts.filter(concert => concert.id !=id)
+    console.log(id)
+    res.json(concerts)  
 });
 
 app.listen(port, () =>{
