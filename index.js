@@ -26,9 +26,19 @@ app.post('/concerts',async (req, res)=>{
         name:req.body.name, 
         place:req.body.place
     });
-     console.log(newConcert);
-      res.send('Got it!')
-   });
+
+//     console.log(newConcert); ..............to test in mongo
+//res.send('Got it!')
+    try{
+       const added = await newConcert.save();
+       res.json(added)
+    }catch(err){
+        res.send(err.message)
+
+    }
+  });
+
+
 /*  app.get('/concerts/:id', (req,res)=>{}
  
  //    console.log(req.params.place)  (taken out for mongo functionality)
