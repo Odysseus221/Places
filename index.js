@@ -1,31 +1,49 @@
 const express = require('express')
 const app = express();
 const bodyParser = require('body-parser')
+const Concert = require('./models/concert')
+const DB_url ='mongodb+srv://dbUser:Webcourses101@clusterclass101-um6ne.mongodb.net/test?retryWrites=true&w=majority'
+//brought in Concert require for model path in mongo
+const mongoose= require('mongoose')
 //created body parser code for json
+
+
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true } ));
 const port = 3000;
 let concerts = require('./concerts')
 //console.log(concerts);
-  app.get('/concerts',(req,res)=>{
+ 
+app.get('/concerts',(req,res)=>{
     console.log('concerts/')
     res.json(concerts  )
 
 });   
-  app.get('/concerts/:place', (req,res)=>{
-     console.log(req.params.place)
+app.post('/concerts',async (req, res)=>{
+    const newConcert = new Concert ({
+        id: req.body.id,
+        name:req.body.name, 
+        place:req.body.place
+    });
+     console.log(newConcert);
+      res.send('Got it!')
+   });
+/*  app.get('/concerts/:id', (req,res)=>{}
+ 
+ //    console.log(req.params.place)  (taken out for mongo functionality)
 //     res.json(concerts[req.params.id])
 
  //    let concert = concerts.filter(concert =>concert.id== req.params.id)
-     let concert = concerts.filter(concert =>concert.place.toLowerCase()== req.params.place.toLowerCase())
+  //1   let concert = concerts.filter(concert =>concert.place.toLowerCase()== req.params.place.toLowerCase())
      //define the variable
-     if (concert && concert.length) {
-         res.json(concert)
-     }
-    else{
-        res.send("there is no concert with this place")
-    }
-  });
+ //2    if (concert && concert.length) {
+ //        res.json(concert)
+ //    }
+ //3   else{
+//4        res.send("there is no concert with this place")
+//    }
+//  });   taking out to install new mongo functionality
 
  
 app.get('/', (req, res)=>{
@@ -70,6 +88,18 @@ app.put('/concerts/',(req,res)=>{
     
     res.json(concerts)
 });
+*/
+//connect with mongoose and constant ...can look up mongoose.connect for instructions
+mongoose.connect(DB_url, {useNewUrlParser : true})
+
+const DB = mongoose.connection
+DB.on('error', (error) => {
+    console.error(error)
+});
+DB.on('open', ()=>{
+    console.log("connected to DB")
+});
+
 
 app.listen(port, () =>{
     console.log('server has started on port: ' + port);
